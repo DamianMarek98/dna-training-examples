@@ -3,7 +3,15 @@ package dna.example.demo.subscription.domain.model
 import spock.lang.Specification
 import spock.lang.Subject
 
+import java.time.Duration
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+
 class SubscriptionTest extends Specification {
+
+    Instant someDay = LocalDate.of(1989, 12, 15).atStartOfDay(ZoneId.systemDefault()).toInstant()
+
     @Subject
     Subscription subscription = new Subscription();
 
@@ -32,17 +40,26 @@ class SubscriptionTest extends Specification {
         given:
         subscription.activate()
         and:
-        2.times {
-            assert subscription.pause().isSuccessful()
-            assert subscription.resume().isSuccessful()
-        }
+        assert subscription.pause(someDay + Duration.ofDays(10)).isSuccessful()
+        assert subscription.resume().isSuccessful()
+        and:
+        assert subscription.pause(someDay + Duration.ofDays(20)).isSuccessful()
+        assert subscription.resume().isSuccessful()
 
         expect:
-        subscription.pause().isFailure()
+        subscription.pause(someDay + Duration.ofDays(100)).isFailure()
+
     }
 
     def 'should nit pause if less than 10 days from last pause'() {
+        given:
+        subscription.activate()
+        and:
+        assert subscription.pause(someDay + Duration.ofDays(10)).isSuccessful()
+        assert subscription.resume().isSuccessful()
 
+        expect:
+        subscription.pause(someDay + Duration.ofDays(19)).isFailure()
     }
 
     def 'should resume sub'() {
