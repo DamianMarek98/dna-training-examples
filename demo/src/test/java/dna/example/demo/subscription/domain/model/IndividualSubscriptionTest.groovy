@@ -8,12 +8,12 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-class SubscriptionTest extends Specification {
+class IndividualSubscriptionTest extends Specification {
 
     Instant someDay = LocalDate.of(1989, 12, 15).atStartOfDay(ZoneId.systemDefault()).toInstant()
 
     @Subject
-    Subscription subscription = new Subscription();
+    IndividualSubscription subscription = new IndividualSubscription();
 
     def 'should activate new sub'() {
         expect:
