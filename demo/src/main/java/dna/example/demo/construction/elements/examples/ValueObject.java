@@ -12,7 +12,7 @@ final class ValueObject {
 
     public static ValueObject of(int capacity) {
         if (capacity < 0) {
-            throw new CapacityCannotBeNegativeException("Capacity cannot be negative!");
+            throw new CapacityCannotBeNegativeException("Capacity cannot be negative!"); //can be Result, Either, Try depends on drivers
         }
         return new ValueObject(capacity);
     }
