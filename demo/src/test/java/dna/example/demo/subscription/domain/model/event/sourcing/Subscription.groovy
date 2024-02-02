@@ -1,4 +1,5 @@
-package dna.example.demo.subscription.domain.model
+package dna.example.demo.subscription.domain.model.event.sourcing
+
 
 import spock.lang.Specification
 import spock.lang.Subject
@@ -8,12 +9,12 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-class IndividualSubscriptionTest extends Specification {
+class SubscriptionTest extends Specification {
 
     Instant someDay = LocalDate.of(1989, 12, 15).atStartOfDay(ZoneId.systemDefault()).toInstant()
 
     @Subject
-    IndividualSubscription subscription = new IndividualSubscription();
+    Subscription subscription = new Subscription();
 
     def 'should activate new sub'() {
         expect:
@@ -75,3 +76,4 @@ class IndividualSubscriptionTest extends Specification {
 
     }
 }
+
