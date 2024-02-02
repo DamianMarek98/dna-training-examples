@@ -27,7 +27,7 @@ class SubscriptionTest extends Specification {
 
     def 'should pause activated sub'() {
         given:
-        subscription.activate()
+        subscription.handle(new SubscriptionActivated(subscription.getSubscriptionId(), Instant.now()))
         expect:
         subscription.pause().isSuccessful()
     }
