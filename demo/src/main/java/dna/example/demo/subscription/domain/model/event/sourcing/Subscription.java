@@ -70,7 +70,6 @@ class Subscription {
         return pause(Instant.now());
     }
 
-    //todo refactor
     Result pause(Instant when) { // command  - blue card
         if (isActive() && pauses.canPauseAt(when)) { //invariants - yellow cards
             handle(new SubscriptionPaused(subscriptionId, Instant.now(), when)); //domain event - orange card
